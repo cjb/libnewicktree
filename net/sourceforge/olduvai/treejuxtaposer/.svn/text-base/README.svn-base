@@ -1,0 +1,383 @@
+TreeJuxtaposer Readme
+October 18, 2007
+Version 2.1
+http://olduvai.sf.net/tj
+Contact email: olduvai-devel@lists.sf.net
+
+Contents:
+
+1	What is TreeJuxtaposer?
+2	Running TreeJuxtaposer
+2.1		Webstart
+2.2		JAR files
+2.3		Compiled source
+2.4		Command-line arguments
+3	Mouse Interaction
+4	Searching
+5	Groups Panel
+6	Settings Panel
+7	Tree editing (new in TJ 2.1!)
+8	Keyboard shortcuts for users
+9	Developer commands
+10	Compilation tools
+11	Version Information
+11.1	v1.0
+11.2	v1.1
+11.3	v1.2
+11.4	v1.3
+11.5	v2.0
+11.6	v2.1
+12	Contributors
+
+
+1	What is TreeJuxtaposer?
+TreeJuxtaposer is an application for browsing trees and comparing
+  them side by side. Although it was originally designed to support
+  phylogenetic trees, it can be used on trees in any application domain.
+
+Our AccordionDrawer technique for multiscale drawing allows fluid
+  interaction even for very large trees, with guarantees on frame rate
+  and the visibility of marked sections. The zoomable interface lets you
+  stretch out parts of the tree you want to see in detail and the rest
+  of the tree will be squished to make room. You can have more than
+  one focus area at a time.
+
+
+2	Running TreeJuxtaposer
+
+Use any one of the following three options to get TreeJuxtaposer running:
+
+2.1 Webstart
+	Click on the tj webstart icon
+
+2.2 JAR Files
+	Download a tj.jar file, the jogl library files jogl.jar and 
+      gluegen-rt.jar, and native library jogl.so, and type on a command line
+      (Linux/Mac command line shown):
+      
+  	"java -cp jogl.jar:gluegen-rt.jar:tj.jar 
+  	   net.sourceforge.olduvai.TreeJuxtaposer.treejuxtaposer
+  	   [<file1> ... <fileN>]"
+  	
+  	  or run the provided executable script, which performs that command:
+  	  
+  	"TJ.sh [<file1> ... <fileN>]"
+  	
+  	The building scripts found in the TreeJuxtaposer package will download the source
+  	and compile it to a JAR file, visit http://jogl.dev.java.net for the jogl packages.
+
+2.3 Compiled source
+	From the command line, if you compiled TJ yourself or from the script buildTAR.sh: 
+	"java net.sourceforge.olduvai.treejuxtaposer.TreeJuxtaposer [<file1> ... <fileN>]"
+
+2.4 Command-line arguments
+	Several command line arguments are valid for JAR file and compiled source
+      running.  The order of arguments is not important.
+      
+    Loading two or more trees allows side-by-side comparison. You can also
+     load only a single tree to use TJ as a browsing viewer. You can load
+     files either by specifying them as command line arguments or using the
+     "File->Open" menu option with the running program.  Trees can later be
+     unloaded with the "File->Delete" menu option.
+
+   The accepted file formats are Newick/New Hampshire (nodes delimited by
+     parentheses and commas, the format of a Nexus tree block), or Nexus. 
+     Interior node labels are allowed. Edge lengths are ignored, and all
+     trees are drawn with aligned terminal nodes (leaves).  The type of file
+     is automatically detected.  You can optionally include integers after 
+     a Nexus filename specifying which trees from the file to load if you load
+     the Nexus file with the "-x" argument. You will be asked which trees in 
+     the Nexus file that you want to use if you don't specify numbers on the 
+     command line.
+
+   You may need to specify the native library explicitly if jogl is not
+     installed in a default java library.  To specify the path to the jogl
+     native libraries, type "java -Djava.library.path=<Path to Libraries> ...".
+     
+   Additional arguments:
+   
+-f  Use fully qualified node names for performing best corresponding node
+     operations. This will make trees with internal labels have unique names
+     for leaves that have similar names. Especially useful for file system trees
+     that may contain a similarly named file in each branch.
+
+-nostructdiff   Start TreeJuxtaposer without structural differences.  This may
+     speed up loading as structural differences for large trees that are not
+     similar.  Differences may be turned on later.
+
+-x n1 [n2 ... nX] <Nexus>   Select a subset of trees from a Nexus file that 
+     may contain several trees.  [n1..nX] are integers from 1 to the number of
+     trees in file <Nexus>.
+
+
+3	Mouse Interaction
+
+Moving the mouse over an edge highlights the node under the cursor in
+  orange, and also the "best corresponding node" (BCN) to that node in all
+  other trees. You will also see a light grey outline around the entire
+  subtree beneath the mouseover node.
+
+If you hold down the shift key, the box around the clade gets
+  thicker and you can resize it - when you start to drag the mouse,
+  whatever corner is closest to the mousedown point will move.  The rest
+  of the scene will change shape accordingly, and other windows will
+  also resize in linked navigation mode (on by default). The same action
+  is available by pressing 't' to mark the clade.
+
+You can also change shape by directly drawing a rectangle on the
+  screen, and moving its boundaries in the same way. Drag out a
+  rectangle, then drag one of the corners to make it larger or smaller. 
+
+
+4	Searching
+
+Selecting the Find menu item opens the Find window. By default, the
+  entire list of labels appears in the top window. When you type in the
+  box on the bottom, that list will be filtered to contain only the
+  items that contain that substring. The search results will also be 
+  highlighted with guaranteed visibility (default color is magenta). 
+
+
+5	Groups Panel
+
+You can use the Groups panel to resize groups or create new ones using
+  the mouse. There are twelve groups. Eight of them are computed by the
+  system: mouseover (the object currently under the mouse, default color
+  orange), differences (computed structural differences, default color
+  red), found (search results, default color magenta), and LCA (least
+  common ancestor of all items in group, default color dark green). Eight
+  of them are selected by the user, with default colors of blue, green,
+  cyan, purple, yellow, brown, pink, and red. 
+  
+You put an item in the current mark group by hitting 'm' when the mouse
+  is over the item. To add items to the current mark group instead of 
+  replacing them, hit 'M' (shift-m). You can control with Mark Resolution 
+  radio buttons whether you mark just the node under the mouse, or the 
+  entire subtree beneath it (the default). You can change which group is 
+  the current mark group using the radio buttons on the bottom part of the 
+  panel.
+
+The Bigger and Smaller buttons operate on all items of any group,
+  resizing the whole forest of subtrees if the group contains more than
+  one contiguous subtree. By default they only affect the vertical
+  extent, but you can switch to just horizontal or both using the radio
+  buttons. The reset button returns the view to the default overview
+  position.
+
+You can change the color of a group by hitting the colored square
+  button. You can also clear just the currently active group (the one
+  whose radio button is on) with the "Clear group" button, or all marks
+  with the "Clear all" button. The found group is special: you can only
+  clear it by erasing the text from the box at the bottom of the found
+  panel.
+
+
+6	Settings Panel
+
+The Line Width slider controls the width of the tree edges, the
+  default is one pixel wide. The Label Density slider controls how
+  densely the labels are drawn on the screen, the default is
+  near-maximum. 
+
+You can set the minimum and maximum font size. You can toggle on and
+  off the computed structural differences, the labels, and linked
+  navigation between all the tree windows. 
+
+You can control whether either the marks or the grey edges are
+  automatically dimmed: saturation is controlled by the size of the
+  screen area subtended by the subtree, and brightness is controlled by
+  the depth in the tree. By default this feature is turned off for
+  marks. 
+
+The BCN score controls the level at which differences are marked. By
+  default they're all marked, moving the slider to the right raises the
+  threshold of difference. 
+
+
+7	Tree editing (new in 2.1!)
+
+The node names can be changed interactively by pressing 'x', which opens a
+  window that allows you to change the name that appears on the highlighted
+  node.  The changes can be saved to a new tree through the File->Save menu
+  option.  If several trees are loaded and save is selected, the trees will
+  be automatically named.  For example, if a user loads three trees and saves
+  them with the name "ChangedTrees.tre", then the three trees will be named,
+  ordered from left to right:
+  
+  "ChangedTrees.tre", "ChangedTrees_1.tre", and "ChangedTrees_2.tre".
+
+
+8	Keyboard shortcuts for users
+
+Alphabetic listing.  Keys that act with state or key combinations are marked
+  with a (*), and are described in more detail below this listing:
+  
+space  redraw  
+0-7* group to make active for growing and shrinking (b or s), or clearing (c)
+a* select all marked groups for clearing, and/or growing and shrinking in 
+     both directions, and clades for marking
+b* grow current group bigger
+c* clear marks in current group
+d  select differences for growing and shrinking
+e  exit interaction box resizing mode
+f  select mouse-over interaction for growing and shrinking
+g* select next group, or previously selected group
+h* select horizontal mode for resizing
+k  toggle whether trees move together with linked navigation (default=on)
+l  select found group (text search marks) for growing and shrinking
+m  mark current node or clade in current user-marking group (single node/subtree)
+M  add current node or clade to current set of user-marking group marks
+n* select nodes for marking, as opposed to whole clades
+r  reset tree to initial stretching view
+s* shrink current group smaller
+t  enter quasi-mode, similar to holding shift while selecting a node for linked
+     navigation
+u  show or hide structural differences
+v* select vertical mode for resizing
+w  show or hide labels 
+x  edit the current label
+
+
+Compound key combinations.  These change some internal state value, which
+  can be observed through the graphical interface (settings and state panels),
+  then perform the action:
+
+Mark what's under mouse, in active group color 
+     m : mark subtree (default case) 
+ [t] m : mark taxon 
+ [n] m : mark taxon as above, but mnemonic is 'node' instead of 'taxon'
+ 
+  if you hold down shift key (M), add to active group instead of
+  replace
+ 
+Change active group (i.e. switch to new mark color) 
+        g : DEFAULT: change active mark group to next one (i.e. g++) 
+ [0-7]  g : change active mark group to the one specified 
+ 
+Clear marks 
+        c : DEFAULT: clear active group 
+ [0-7]  c : clear specific group 
+ [a]    c : clear all groups  (except the found group)
+ 
+Change size of group 
+ [hva] b : make it bigger, in either horizontal or vertical or all
+           directions  
+ [hva] s : make it smaller, in either horizontal or vertical or all 
+           directions. Default: vertical. 
+
+  (if the group is a forest, only one of the subtrees will be
+  highlighted with a box, but all will resize with b or s. when you
+  drag with the mouse, only the boxed subtree will change size.
+
+
+9	Developer commands
+
+There are some developer/debugging commands, some of which can be accessed
+  from the GUI, that require a two-key sequence. Each shortcut here can
+  be accessed by first hitting '.', then one of the keys below:
+
+B  toggle drawing label background
+C  toggle dim/bright group marks (lower in hierarchy less saturated if bright) 
+D  toggle dim/bright normal marks (lower in hierarchy less saturated if bright)
+eE grow/shrink the minimum font size
+g  toggle drawing the background grid
+H  toggle flash drawing
+j  toggle animated transition jumping
+mM grow/shrink the label buffer size
+N  redraw all
+R  toggle label drawing position for leaves
+T  toggle drawing geometry (tree edges)
+wW grow/shrink tree edges
+xX grow/shrink maximum font size
+z  toggle drawing the background grid (identical to g)
+ 
+
+10	Compilation tools
+
+Compilation tools have been provided, but may require some modification to
+  point to scripts at the required library files. The script expects the
+  manifest file, jogl jar files, jogl native libraries, and the source
+  to be in the current directory. Constants found at the start of the
+  script can be modified to point to these files on your system setup.
+  The build scripts, and manifest.tj file, should be moved to a new 
+  directory prior to running, and appropriate jogl libraries should be 
+  copied to the appropriate directory. Both scripts download the current
+  source from the subversion SourceForge repository prior to building, and
+  packaging.
+  
+  From the command line:
+
+./buildJAR.sh
+This script builds the TreeJuxtaposer jar file with a current date stamp,
+  such as "tj-20071015.jar". The jar file contains only compiled resources
+  that are necessary to run TreeJuxtaposer. This file can be run following
+  steps in section 2.2 of this document.
+
+./buildTAR.sh
+This script builds the TreeJuxtaposer tar file with a current date stamp,
+  such as "tj-20071015.tar.gz". This file contains the javadoc documentation,
+  original source, and compiled resources.  The contents of this file can
+  be run following the steps in section 2.3 of this document, or loaded into
+  a development suite for modification.
+
+
+11	Version Information
+
+11.1	v1.0
+ - released January 11, 2004
+ - original code, uses quadtrees
+ - limited to approximately 500,000 total tree nodes in 1.5G heap memory
+ - published (SIGGRAPH 2003, Munzner, et al.)
+ 
+11.2	v1.1
+ - released June 25, 2004
+ - updated documentation
+ - splitLine code for drawing, resizing, picking, culling
+ - limited to approximately 2 million total tree nodes in 1.5G heap memory
+ - flexible structure for use in future accordion drawing packages
+ 
+11.3	v1.2
+ - released October 19, 2004
+ - bug fix release:
+   - tree marking fixes (1-to-many marking now works)
+   - nexus file loading/unloading fixes
+   
+11.4	v1.3
+ - released February 8, 2005
+ - line width tied to leaf traversal (thicker lines, more line overlap)
+ - limited to approximately 3 million total tree nodes in 1.5G heap memory
+ - peak scene rendering time of approximately 600ms:
+   - Pentium4 3Ghz, 800x600, 3 million tree nodes, line width 1
+
+11.5	v2.0
+ - released February 2, 2005
+ - gl4java -> jogl v1.1.1 migration (opengl graphics libraries)
+ - webstart application support
+ 
+ 11.6	v2.1
+ - released October 18, 2007
+ - automatic detection of nexus and newick formats with new data file parser
+ - new package structure: drawer and application
+   - application package includes tree drawing package
+ - smoother font rendering
+ - subtree shrinking bug fix
+ - tree node label editing interface
+   - save changed labels to a new file
+ - fully documented functions and variables in javadoc standard format
+
+Contributors and Authors
+
+Current Contributors:
+----------
+James Slack          			www.cs.ubc.ca/~jslack (2003-)
+Tamara Munzner       			www.cs.ubc.ca/~tmm (2001-)
+
+Previous Contributors:
+----------
+Kristian Hildebrand  			www.uni-weimar.de/~hildebr2 (2003-2004)
+Francois Guimbretiere			www.cs.umd.edu/~francois (2001-2003)
+Serdar Tasiran       			network.ku.edu.tr/~stasiran (2001-2003)
+Li Zhang             			www.hpl.hp.com/personal/Li_Zhang (2001-2003)
+Yunhong Zhou         			www.yunhongzhou.com (2001-2003)
+Zhihui Jeffrey Zhang 			(2003)
+

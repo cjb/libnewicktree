@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/olduvai/!svn/ver/1076/trunk/olduvai/net/sourceforge/olduvai/accordiondrawer
+END
+SplitLine.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/olduvai/!svn/ver/1076/trunk/olduvai/net/sourceforge/olduvai/accordiondrawer/SplitLine.java
+END
+SplitTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/olduvai/!svn/ver/960/trunk/olduvai/net/sourceforge/olduvai/accordiondrawer/SplitTransition.java
+END
+AccordionDrawer.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/olduvai/!svn/ver/1065/trunk/olduvai/net/sourceforge/olduvai/accordiondrawer/AccordionDrawer.java
+END
+FontWrapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svnroot/olduvai/!svn/ver/1055/trunk/olduvai/net/sourceforge/olduvai/accordiondrawer/FontWrapper.java
+END
+StaticSplitLine.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/olduvai/!svn/ver/960/trunk/olduvai/net/sourceforge/olduvai/accordiondrawer/StaticSplitLine.java
+END
+AbstractRangeList.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svnroot/olduvai/!svn/ver/960/trunk/olduvai/net/sourceforge/olduvai/accordiondrawer/AbstractRangeList.java
+END
+revision history.txt
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svnroot/olduvai/!svn/ver/730/trunk/olduvai/net/sourceforge/olduvai/accordiondrawer/revision%20history.txt
+END
+SplitAxisTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svnroot/olduvai/!svn/ver/960/trunk/olduvai/net/sourceforge/olduvai/accordiondrawer/SplitAxisTest.java
+END
+SplitAxisLogger.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/olduvai/!svn/ver/1065/trunk/olduvai/net/sourceforge/olduvai/accordiondrawer/SplitAxisLogger.java
+END
+SplitAxis.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/olduvai/!svn/ver/1065/trunk/olduvai/net/sourceforge/olduvai/accordiondrawer/SplitAxis.java
+END
+GridCell.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/olduvai/!svn/ver/943/trunk/olduvai/net/sourceforge/olduvai/accordiondrawer/GridCell.java
+END
+CellGeom.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/olduvai/!svn/ver/943/trunk/olduvai/net/sourceforge/olduvai/accordiondrawer/CellGeom.java
+END
+InteractionBox.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svnroot/olduvai/!svn/ver/960/trunk/olduvai/net/sourceforge/olduvai/accordiondrawer/InteractionBox.java
+END
+StaticSplitAxis.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/olduvai/!svn/ver/1061/trunk/olduvai/net/sourceforge/olduvai/accordiondrawer/StaticSplitAxis.java
+END
+LabelBox.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/olduvai/!svn/ver/963/trunk/olduvai/net/sourceforge/olduvai/accordiondrawer/LabelBox.java
+END
+DrawableRange.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svnroot/olduvai/!svn/ver/943/trunk/olduvai/net/sourceforge/olduvai/accordiondrawer/DrawableRange.java
+END
