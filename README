@@ -12,6 +12,35 @@ This code is *entirely* taken from the TreeJuxtaposer project at:
 I refactored the code to separate UI drawing from parsing and Tree
 creation, so this code is purely for Newick parsing and tree generation.
 
+How can I use it?
+================
+
+You could do something like this:
+
+    Tree treeoflife;
+    int current_depth = 0;
+
+    void setup() {
+        BufferedReader r = createReader("treeoflife.tree");
+        TreeParser tp = new TreeParser(r);
+        treeoflife = tp.tokenize(1, "treeoflife", null);
+        int tree_height = treeoflife.getHeight();
+        System.out.println("largest tree height is: " + tree_height);
+        recursive_print(0, 0);
+    }
+
+    void recursive_print (int currkey, int currdepth) {
+        TreeNode currNode = treeoflife.getNodeByKey(currkey);
+        int numChildren = currNode.numberChildren();
+        for (int i = 0; i < numChildren; i++) {
+            int childkey = currNode.getChild(i).key;
+            TreeNode childnode = treeoflife.getNodeByKey(childkey);
+            System.out.println("child name is: " + childnode.getName()
+                                 + " depth is: " + currdepth);
+            recursive_print(childkey, currdepth+1);
+        }
+    }
+
 Who uses it?
 ============
 
