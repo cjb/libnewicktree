@@ -225,13 +225,12 @@ public class Tree {
 	 * Computes and stores pre- and post-orders for leaves.
 	 * Can't do minmax until after linkNodesInPreorder is called 
 	 * to set index values!
-	 * @param jpb Progress bar 	
 	 *
 	 * @see     TreeNode
 	 */
-	public void postProcess(JProgressBar jpb) {
+	public void postProcess() {
 		preorderPostProcess();
-		linkLeaves(jpb);
+		linkLeaves();
 //		System.out.println("progress bar updated: min:" + jpb.getMinimum() + " max:" + jpb.getMaximum() + " value:" + jpb.getValue());
 	}
 
@@ -334,16 +333,9 @@ public class Tree {
 	 * @see     NameComparator
 	 * @param jpb Progress bar.
 	 */
-	private void linkLeaves(JProgressBar jpb) {
+	private void linkLeaves() {
 		int counter = 0;
 		int percentage = 0;
-		if (jpb != null && nodes.size() > 1000)
-		{
-			jpb.setMinimum(0);
-			jpb.setMaximum(nodes.size() * 2);
-		}
-		else
-			jpb = null;
 		TreeNode pren = root.leftmostLeaf;
 		Vector leaves = new Vector();
 		leaves.add(pren);
@@ -355,21 +347,8 @@ public class Tree {
 			{
 				leaves.add(n);
 			}
-			if (jpb != null && (int)((counter / (jpb.getMaximum() * 1.0))*100) > percentage)
-			{
-				percentage = (int)((counter / (jpb.getMaximum() * 1.0))*100);
-				jpb.setValue(percentage);
-				jpb.setString("Leaves: " + percentage + "%");
-			}
 		}
 		numLeaves = leaves.size();
-		if (jpb != null)
-		{
-			jpb.setMaximum(nodes.size() + numLeaves);
-			percentage = (int)((counter / (jpb.getMaximum() * 1.0))*100);
-			jpb.setValue(percentage);
-			jpb.setString("Sorting (" + percentage + "%)");
-		}
 
 		NameComparator myNameComparator = new NameComparator();
 		TreeNode[] sortedLeafArray = (TreeNode[])leaves.toArray(new TreeNode[leaves.size()]);
@@ -396,13 +375,6 @@ public class Tree {
 					index++;
 			}
 			curr = next;
-
-			if (jpb != null && (int)((counter / (jpb.getMaximum() * 1.0))*100) > percentage)
-			{
-				percentage = (int)((counter / (jpb.getMaximum() * 1.0))*100);
-				jpb.setValue(percentage);
-				jpb.setString("Leaves: " + percentage + "%");
-			}
 		}
 	}
 

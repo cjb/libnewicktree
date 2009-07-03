@@ -148,9 +148,8 @@ public abstract class AccordionTreeDrawer extends AccordionDrawer {
      * @param t Tree to be drawn on the drawer's canvas.
      * @param w width of canvas, in pixels.
      * @param h height of canvas, in pixels.
-     * @param jpb Progress bar.
      */
-    public AccordionTreeDrawer(Tree t, int w, int h, JProgressBar jpb) {
+    public AccordionTreeDrawer(Tree t, int w, int h) {
 	super(w,h);
 	
 	dimbrite = true;
@@ -163,8 +162,8 @@ public abstract class AccordionTreeDrawer extends AccordionDrawer {
 	
 	tree = t;
 	rootNode = tree.getRoot();
-	initCells(jpb);
-	t.setLeafSplitAxis((StaticSplitAxis)splitAxis[Y]);
+	initCells();
+	//t.setLeafSplitAxis((StaticSplitAxis)splitAxis[Y]);
 //	buildGrids();
 //	attachEdges();
 	flashGeom = tree.getRoot();
@@ -233,21 +232,15 @@ public abstract class AccordionTreeDrawer extends AccordionDrawer {
 	}
 	
     /** Build cells for each TreeNode.  O(n) operation that partitions the worldspace and uses already created split lines.
-     * @param jpb progress bar
      * */
-    private void buildCells(JProgressBar jpb)
+    private void buildCells()
 	{
-	    if (jpb != null)
-	    {
-	        jpb.setMinimum(0);
-	        jpb.setMaximum(tree.getTotalNodeCount());
-	    }
 	    int percentage = 0;
 	    int counter = 0;
 		int leafCount = 0;
 //		Vector leafVector = new Vector();
 		SplitLine currY = splitAxis[Y].getMinStuckLine(); // for positioning leaves in splitLine Y
-		((StaticSplitAxis)splitAxis[Y]).createSplitLineArray(tree.getLeafCount());
+		// ((StaticSplitAxis)splitAxis[Y]).createSplitLineArray(tree.getLeafCount());
 		for(TreeNode n = tree.root.leftmostLeaf; n!=null; n=n.posorderNext)
 		{
 		    counter++;
@@ -267,7 +260,7 @@ public abstract class AccordionTreeDrawer extends AccordionDrawer {
 				{
 					// assign each leaf to a split line for culling function, so the max split line can reference its leaf directly					
 					SplitLine currLine = splitAxis[Y].getSplitFromIndex(leafCount++);
-					((StaticSplitAxis)splitAxis[Y]).addSplitLine(leafCount-1, currLine);
+					//((StaticSplitAxis)splitAxis[Y]).addSplitLine(leafCount-1, currLine);
 					currLine.setCullingObject(n);
 				}
 				else
@@ -298,27 +291,20 @@ public abstract class AccordionTreeDrawer extends AccordionDrawer {
 			{
 				rootNode = n;
 			}
-			if (jpb != null && (int)((counter/tree.getTotalNodeCount()*1.0) * 100.0) > percentage)
-			{
-			    percentage = (int)((counter/tree.getTotalNodeCount()*1.0) * 100.0);
-			    jpb.setValue(percentage);
-			    jpb.setString("Init cells: " + percentage +"%");
-			}
 		}
 	}
 
     /**
      * Initializes split lines, and builds cells for each tree node.
-     * @param jpb progress bar.
      */
-    public void initCells(JProgressBar jpb) {
+    public void initCells() {
 	int numLeaves = tree.getLeafCount();
 	int treeHeight = tree.getHeight();
 
 	initSplitLines(false, true, treeHeight, numLeaves); // no reset, use static lines
 	splitAxis[X].setMinStuckValue(0.01f);
 
-	buildCells(jpb);
+	buildCells();
 	if (AccordionDrawer.debugOutput)
 	    System.out.println("root cell " + rootNode.getCell());
     }
@@ -436,7 +422,7 @@ public abstract class AccordionTreeDrawer extends AccordionDrawer {
 					{
 					// draw back around the old label
 					gl.glRasterPos3d(s2w(flashLabelBox.bottomLeftPos(X), X),
-						s2w(flashLabelBox.bottomLeftPos(Y), Y), getLabelplane());
+						s2w(flashLabelBox.bottomLeftPos(Y), Y), 1.0);
 					gl.glDrawPixels(flashLabelBox.size(X), flashLabelBox.size(Y),
 						GL.GL_RGB, GL.GL_FLOAT, labelPixels);
 					
@@ -447,7 +433,7 @@ public abstract class AccordionTreeDrawer extends AccordionDrawer {
 				int length[] = {xy == X ? lineLength[xy] : bufferedWidth,
 						xy == X ? bufferedWidth : lineLength[xy]};	
 				gl.glRasterPos3d(s2w(linePos[xy][X], X),
-					s2w(linePos[xy][Y], Y), getLabelplane());
+					s2w(linePos[xy][Y], Y), 1.0);
 				gl.glDrawPixels(length[X], // length if horiz, else width
 					length[Y], // width if horiz, else length
 					GL.GL_RGB, GL.GL_FLOAT, linePixel[xy]);

@@ -68,19 +68,6 @@ public class TreeParser
      * Root node of the tree being parsed.  Must be initialized outside the tokenizer.
      */
     private TreeNode rootNode;
-    /**
-     * Progress bar.
-     */
-    private JProgressBar jpb;
-    
-    /**
-     * Get the progress bar object.
-     * @return The progress bar object.
-     */
-    public JProgressBar getProgressBar()
-    {
-        return jpb;
-    }
     
     /**
      * Guess the type of treeFile based on the presence of nexus identifiers.
@@ -382,20 +369,10 @@ public class TreeParser
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.gridx = 0;
             gbc.gridy = 0;
-            jpb = new JProgressBar(JProgressBar.HORIZONTAL, 0, (int)fileLength);
-//            System.out.println("New progress bar: " + 0 + " -> " + fileLength);
-            progFrame.add(jpb);
             progFrame.pack();
-//            progFrame.validate();
             progFrame.setVisible(true);
-
         }
-        else
-            jpb = progressBar;
         int progress = 0;
-        jpb.setValue(progress);
-        jpb.setVisible(true);
-//        System.out.println("progress bar set to visible: min:" + jpb.getMinimum() + " max:" + jpb.getMaximum() + " value:" + jpb.getValue());
         rootNode = new TreeNode();
         Tree t = new Tree();
         t.setRootNode(rootNode);
@@ -407,8 +384,7 @@ public class TreeParser
         boolean EOT = false;
         boolean nameNext = true;
         int percentage = 0;
-        try
-        {
+	try {
             while (EOT == false &&
                     (thisToken = tokenizer.nextToken()) != StreamTokenizer.TT_EOF)
             {
@@ -473,34 +449,20 @@ public class TreeParser
             	    debugOutput("default " + (char)thisToken);
             		break;
             }
-            jpb.setValue(progress);
-            jpb.setStringPainted(true);
-            if ((int)(progress/(fileLength*1.0) * 100) > percentage)
-            {
-                percentage = (int)(progress/(fileLength*1.0) * 100);
-                jpb.setString("Parsing: " + percentage + "%");
-                
-//                System.out.println("progress bar updated: min:" + jpb.getMinimum() + " max:" + jpb.getMaximum() + " value:" + jpb.getValue());
-            }
-            }
         }
-        catch (IOException e)
-        {
-            e.printStackTrace();
+        }
+        catch (IOException e) {
         }
         if (!nodeStack.isEmpty())
             System.err.println("Node stack still has " + nodeStack.size() + " things");
-        t.postProcess(jpb);
-//        System.out.println("progress bar updated?: min:" + jpb.getMinimum() + " max:" + jpb.getMaximum() + " value:" + jpb.getValue());
+        t.postProcess();
         if (progFrame != null)
         {
         	// no more progress frame
         	progFrame.dispose();
-        	jpb = null; // free the progress bar
         }
         return t;
     }
-
     /**
      * Nexus taxa tokenizer, does nothing for now, but can be used later.
      *

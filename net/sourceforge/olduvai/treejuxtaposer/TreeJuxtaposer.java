@@ -360,12 +360,11 @@ public class TreeJuxtaposer {
 	 * Adds a new tree to "trees", performs all the pairwise tree
 	 * comparisons and stores results.
 	 * @param newTree New tree to add.  Each existing tree will be compared with this new one.
-	 * @param jpb Progress bar.
 	 *
 	 * @see net.sourceforge.olduvai.treejuxtaposer.drawer.Tree
 	 * @see TreePairs#addTree(Tree, int, boolean)
 	 */
-	public void addTree(Tree newTree, JProgressBar jpb) {
+	public void addTree(Tree newTree) {
 		newTree.setKey(treeCount);
 		treeCount++;
 
@@ -484,7 +483,7 @@ public class TreeJuxtaposer {
 							treeToUse.setKey(treeCount);
 							TPs.addTree(treeToUse, edgeweightLevels, false);
 						}
-						AccordionTreeDrawer newATD = (AccordionTreeDrawer) addATD(treeToUse, width, height, jpb);
+						AccordionTreeDrawer newATD = (AccordionTreeDrawer) addATD(treeToUse, width, height);
 						ATDRow.add(newATD);
 					}
 				}
@@ -509,7 +508,7 @@ public class TreeJuxtaposer {
 				}
 			}
 		} else {
-			addATD(newTree, width, height, jpb);
+			addATD(newTree, width, height);
 			TPs.addTree(newTree, edgeweightLevels, false);
 			addOneTreeStructuralDiffs();
 			Component c = ((AccordionTreeDrawer)treeDrawers.get(treeCount-1)).getCanvas();
@@ -574,11 +573,10 @@ public class TreeJuxtaposer {
 	 * @param newTree Tree that will belong to the new drawer.
 	 * @param width Width of the new drawer window/canvas.
 	 * @param height Height of the new drawer window/canvas.
-	 * @param jpb Progress bar for this tree.
 	 * @return New drawer object for the given tree.
 	 */
-	private AccordionTreeDrawerFinal addATD(Tree newTree,int width,int height, JProgressBar jpb) {
-		AccordionTreeDrawerFinal ATD = new AccordionTreeDrawerFinal(newTree, width, height, this, jpb);
+    private AccordionTreeDrawerFinal addATD(Tree newTree,int width,int height) {
+	AccordionTreeDrawerFinal ATD = new AccordionTreeDrawerFinal(newTree, width, height, this);
 		ATD.setBackgroundColor(backgroundColor);
 		ATD.setObjectColor(objectColor);
 		ATD.setLabelColor(labelColor);
@@ -1770,7 +1768,7 @@ public class TreeJuxtaposer {
 			 Iterator iter = trees.iterator();
 			 while (iter.hasNext())
 			 {
-				 addTree((Tree)iter.next(), null);
+			 	 addTree((Tree)iter.next());
 			 }
 			 updateTitle();
 
@@ -1804,7 +1802,7 @@ public class TreeJuxtaposer {
 				 System.out.println("load/parse time " + (loaded-start)/1000.0f + " sec");
 
 			 t.setFileName(fileName);
-			 addTree(t, parser.getProgressBar());
+			 addTree(t);
 			 updateTitle();
 
 			 processed  = System.currentTimeMillis();

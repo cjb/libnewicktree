@@ -1529,11 +1529,10 @@ public abstract class AccordionDrawer implements MouseListener, MouseMotionListe
 	 * 
 	 *   Loggers may be null if no logging is desired
 	 * 
-	 * @param jpb A progressBar widget for displaying progress
 	 * @param xLogger Logging for X axis
 	 * @param yLogger Logging for Y axis  
 	 */
-	public abstract void initCells(JProgressBar jpb);
+	public abstract void initCells();
 
 	/**
 	 * (TJ only) Get the list of possible colors for the given cell geometry

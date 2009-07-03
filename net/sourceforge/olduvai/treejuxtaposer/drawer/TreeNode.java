@@ -1207,7 +1207,7 @@ public class TreeNode implements CellGeom, Comparable {
 
 		// highlighted node drawing == drawBig
 
-		double labelplane = d.getLabelplane();
+		double labelplane = 1.0;
 		if (d.labeldrawback || drawBig) {
 			float thecol[] = new float[3];
 			if (drawBig)

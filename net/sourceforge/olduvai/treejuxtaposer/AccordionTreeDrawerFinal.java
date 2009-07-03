@@ -143,10 +143,9 @@ public class AccordionTreeDrawerFinal extends AccordionTreeDrawer {
 	 * @param w width of the canvas in pixels.
 	 * @param h height of the canvas in pixels.
 	 * @param thetj TreeJuxtaposer object that uses this drawer.
-	 * @param jpb Progress bar.
 	 */
-	public AccordionTreeDrawerFinal(Tree t, int w, int h, TreeJuxtaposer thetj, JProgressBar jpb) {
-		super(t, w, h, jpb);
+	public AccordionTreeDrawerFinal(Tree t, int w, int h, TreeJuxtaposer thetj) {
+		super(t, w, h);
 		tj = thetj;
 		tj.stateFrame.activeMarkAction(StateFrame.GA_ACT);
 		tj.stateFrame.activeModeAction(StateFrame.M_ACT);
