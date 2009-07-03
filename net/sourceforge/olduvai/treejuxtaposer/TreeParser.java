@@ -358,20 +358,8 @@ public class TreeParser
     public Tree tokenize(long fileLength, String streamName,
             JProgressBar progressBar)
     {
-    	Frame progFrame = null;
         final char openBracket = '(', closeBracket = ')', childSeparator = ',',
         	treeTerminator = lineTerminator, quote = '\'', doubleQuote = '"', infoSeparator = ':';
-        if (progressBar == null)
-        {
-            progFrame = new Frame(streamName);
-//            progFrame.addWindowListener(this);
-            progFrame.setLayout(new GridBagLayout());
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.gridx = 0;
-            gbc.gridy = 0;
-            progFrame.pack();
-            progFrame.setVisible(true);
-        }
         int progress = 0;
         rootNode = new TreeNode();
         Tree t = new Tree();
@@ -456,11 +444,6 @@ public class TreeParser
         if (!nodeStack.isEmpty())
             System.err.println("Node stack still has " + nodeStack.size() + " things");
         t.postProcess();
-        if (progFrame != null)
-        {
-        	// no more progress frame
-        	progFrame.dispose();
-        }
         return t;
     }
     /**
