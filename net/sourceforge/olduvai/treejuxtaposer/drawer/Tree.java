@@ -165,7 +165,7 @@ public class Tree {
 	 * Accessor for height of tree.  This is also the longest path from the root to some leaf node.
 	 * @return value of {@link #height}.
 	 */
-	protected int getHeight() { return height; }
+	public int getHeight() { return height; }
 
 	/** Mutator for key
 	 * @param i New value for {@link #key}.

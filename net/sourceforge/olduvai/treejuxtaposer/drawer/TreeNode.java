@@ -225,7 +225,7 @@ public class TreeNode implements CellGeom, Comparable {
 	public String label = ""; // always short form
 
 	/** Distance from this node to the root node. The root is at height 1. */
-	protected int height;
+	public int height;
 
 	/** Weight is the horizontal edge length for the edge immediately above the node.  Edge lengths are not determined by this number currently; all edges are stretched to make leaves right aligned, with minimal integral lengths. */
 	public float weight = 0.0f;
