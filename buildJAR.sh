@@ -18,7 +18,7 @@ cp manifest.tj ${buildP}
 
 #pack
 pushd ${buildP}
-TJ=tj-`date +%Y%m%d`.jar
+TJ=libnewicktree.jar
 jar cmf manifest.tj $TJ net/sourceforge/olduvai/treejuxtaposer
 popd
 
