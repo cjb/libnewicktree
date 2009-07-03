@@ -37,11 +37,6 @@ package net.sourceforge.olduvai.treejuxtaposer.drawer;
 
 import java.util.*;
 import java.text.Collator;
-import javax.swing.JProgressBar;
-
-import net.sourceforge.olduvai.accordiondrawer.SplitAxis;
-import net.sourceforge.olduvai.accordiondrawer.StaticSplitAxis;
-
 
 /**
  * A public class representing a (phylognenetic) tree.
@@ -74,7 +69,7 @@ public class Tree {
 
 	// reference for array of leaves in SC.cullingObject
 	/** Split axis reference for leaf recovery (leaves are attached to split line culling objects) */
-	private StaticSplitAxis leafSplitAxis;
+	//private StaticSplitAxis leafSplitAxis;
 
 	/**
 	 * Default tree constructor.  Nodes are created by parser and added in later.
@@ -251,8 +246,6 @@ public class Tree {
 		for(TreeNode n = root; n != null; n = n.preorderNext)
 		{
 			n.label = n.name;
-			if (AccordionTreeDrawer.fullyQualified && n.parent != null)
-				n.name = n.parent.name + separator + n.name;
 			n.key = index++;
 			nodes.add(n);
 			if(n.name != null && n.name.length() > 0) {
@@ -279,8 +272,6 @@ public class Tree {
 		for(TreeNode n = root; n != null; n = n.preorderNext)
 		{
 			n.label = n.name;
-			if (AccordionTreeDrawer.fullyQualified && n.parent != null)
-				n.name = n.parent.name + separator + n.name;
 			nodes.add(n);
 			if(n.name != null && n.name.length() > 0) {
 				// don't put an empty string in the
@@ -385,10 +376,6 @@ public class Tree {
 	public TreeNode getLeaf(int index)
 	{
 //		System.out.println("getting leaf: " + index );
-		if (index >= 0 && index < leafSplitAxis.getSize())
-			return (TreeNode)leafSplitAxis.getSplitFromIndex(index).getCullingObject();
-		if (index == leafSplitAxis.getSize())
-			return root.rightmostLeaf;
 		return null;
 	}
 
@@ -415,9 +402,9 @@ public class Tree {
 	/**
 	 * @param leafSplitAxis The leafSplitLine to set.
 	 */
-	public void setLeafSplitAxis(StaticSplitAxis leafSplitAxis) {
-		this.leafSplitAxis = leafSplitAxis;
-	}
+	//public void setLeafSplitAxis(StaticSplitAxis leafSplitAxis) {
+	//	this.leafSplitAxis = leafSplitAxis;
+	//}
 	
 	/**
 	 * Get the leaves under this node.  Used for tree to tree comparison, removing leaf nodes from difference calculations when they only appear in one side of the tree.
