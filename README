@@ -1,0 +1,33 @@
+What's this?
+============
+
+It's a Newick tree parser:
+
+   http://en.wikipedia.org/wiki/Newick_format
+
+This code is *entirely* taken from the TreeJuxtaposer project at:
+
+   http://olduvai.sourceforge.net/tj/index.shtml
+
+I refactored the code to separate UI drawing from parsing and Tree
+creation, so this code is purely for Newick parsing and tree generation.
+
+Who uses it?
+============
+
+The need for a standalone parser came from the tree explorer at:
+
+    http://exploretree.org/
+
+What license is it available under?
+===================================
+
+The TreeJuxtaposer code is under the BSD license, so this code is too.
+
+Who should I contact with a bug report?
+=======================================
+
+Since I stripped out anything that wasn't necessary for exploretree, you
+could first see if what you need is present in the main TreeJuxtaposer 
+source.  If the bug is only in this library, please contact me at 
+chris-libnewick@printf.net instead of bugging the TreeJuxtaposer folks.
